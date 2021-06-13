@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -36,10 +37,10 @@
     <div id="app">
         <!-- Statusbar overlay -->
         <div class="statusbar"></div>
-    
+
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-       
+
             <!-- Top Navbar -->
             <div class="navbar">
                 <div class="navbar-bg"></div>
@@ -49,48 +50,24 @@
                     <div class="right"><i class="icon icon-forward"></i></div>
                 </div>
             </div>
-    
+
             <!-- Toolbar -->
             <div class="toolbar toolbar-bottom">
                 <div class="toolbar-inner">
-                <!-- Toolbar links -->
-                <a href="#" class="link">Link 1</a>
-                <a href="#" class="link">Link 2</a>
+                    <!-- Toolbar links -->
+                    <a href="#" class="link">Link 1</a>
+                    <a href="#" class="link">Link 2</a>
                 </div>
             </div>
-        
-        <!-- Initial Page, "data-name" contains page name -->
+
+            <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">
                 <!-- Scrollable page content -->
                 <div class="page-content">
                     <div class="block">
-                        <p>Page content goes here</p>
-                        <!-- Link to another page -->
-                        <a href="/about/" data-view=".page-content">About app</a>
 
-                        <!-- In data-popup attribute we specify CSS selector of popup we need to open -->
-                        <p><a href="#" data-popup=".my-popup" class="popup-open">Open Popup</a></p>
 
-                        <!-- And somewhere in DOM -->
-                        <div class="popup my-popup">
-                            <div class="view">
-                                <div class="page">
-                                    <div class="navbar">
-                                        <div class="navbar-bg"></div>
-                                        <div class="navbar-inner">
-                                            <div class="title">Popup</div>
-                                            <div class="right">
-                                                <!-- Link to close popup -->
-                                                <a class="link popup-close">Close</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="page-content">
-                                      ...
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
