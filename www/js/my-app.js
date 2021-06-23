@@ -16,6 +16,8 @@
       routes: [
               { path: '/about/', url: 'about.html', },
               { path: '/login/', url: 'login.html', },
+              { path: '/registro/', url: 'registro.html', },
+              { path: '/usuario/', url: 'usuario.html', },
           ]
           // ... other parameters
   });
@@ -34,8 +36,43 @@
   })
 
   // Option 2. Using live 'page:init' event handlers for each page
-  $$(document).on('page:init', '.page[data-name="about"]', function(e) {
+  $$(document).on('page:init', '.page[data-name="index"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      console.log(e);
-      alert('Hello');
+      $$('#IrALogin').on('click', fnirALogin);
+      $$('#IrARegistro').on('click', fnirARegistro);
   })
+  $$(document).on('page:init', '.page[data-name="login"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#IrAUsuario').on('click', fnirAUsuario);
+  })
+  $$(document).on('page:init', '.page[data-name="registro"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#registro').on('click', fnirALogin)
+  })
+  $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#usuarionombre').html(nombre);
+  })
+
+
+
+
+
+
+  var nombre = "";
+  var correo = "";
+  var local = "";
+
+  function fnirALogin() {
+
+      mainView.router.navigate('/login/');
+  }
+
+  function fnirARegistro() {
+
+      mainView.router.navigate('/registro/');
+  }
+
+  function fnirAUsuario() {
+      mainView.router.navigate('/usuario/');
+  }

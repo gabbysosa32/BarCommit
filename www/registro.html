@@ -1,5 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
-<div class="page" data-name="login">
+<div class="page" data-name="registro">
     <div class="navbar">
         <div class="navbar-inner sliding">
             <div class="left">
@@ -8,7 +8,7 @@
                     <span class="ios-only">Back</span>
                 </a>
             </div>
-            <div class="title">Iniciar sesión</div>
+            <div class="title">Registrase</div>
         </div>
     </div>
     <div class="page-content">
@@ -20,9 +20,25 @@
                         <ul>
                             <li class="item-content item-input">
                                 <div class="item-inner">
+                                    <div class="item-title item-label">Nombre</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" id="registro-nombre" name="username" placeholder="Correo@example.com" />
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">Nombre del local</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" id="registro-local" name="username" placeholder="Local" />
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input">
+                                <div class="item-inner">
                                     <div class="item-title item-label">Correo electrónico</div>
                                     <div class="item-input-wrap">
-                                        <input type="email" name="email" placeholder="Email" />
+                                        <input type="email" id="registro-email" name="email" placeholder="correo@correo.com" />
                                     </div>
                                 </div>
                             </li>
@@ -30,7 +46,7 @@
                                 <div class="item-inner">
                                     <div class="item-title item-label">Contraseña</div>
                                     <div class="item-input-wrap">
-                                        <input type="password" name="password" placeholder="Contraseña" />
+                                        <input type="password" id="registro-contra" name="password" placeholder="Contraseña" />
                                     </div>
                                 </div>
                             </li>
@@ -38,7 +54,7 @@
                     </div>
                     <div class="list">
                         <ul>
-                            <li><a href="#" class="list-button" id="IrAUsuario">Iniciar sesión</a></li>
+                            <li><a href="#" class="list-button" id="registro">Registrarse</a></li>
                         </ul>
                         <div class="block-footer">
 
