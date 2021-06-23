@@ -47,21 +47,22 @@
   })
   $$(document).on('page:init', '.page[data-name="registro"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      $$('#registro').on('click', fnirALogin)
+
   })
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      $$('#usuarionombre').html(nombre);
+
   })
 
 
 
-
+  $$('#registro').on('click', fnRegistrarusuario)
 
 
   var nombre = "";
-  var correo = "";
+  var mail = "";
   var local = "";
+  clave = "";
 
   function fnirALogin() {
 
@@ -76,3 +77,31 @@
   function fnirAUsuario() {
       mainView.router.navigate('/usuario/');
   }
+
+  function fnRegistrarusuario() {
+      mail = $$('#registro-email').val();
+      local = $$('#registro-local').val();
+      nombre = $$('#registro-nombre').val();
+      clave = $$('#registro-clave').val();
+
+      // Creacion de usuario -----------------------------------
+
+      firebase.auth().createUserWhitEmailAndPassword(mail, clave)
+          .then(function() {
+              mainView.router.navigate('/login/');
+
+          })
+          .catch(function(error) {
+              if (error.code == "auth/email-already-in-use") {
+                  console.error("el mail elegido ya esta vinculado a una cuenta");
+              }
+
+          });
+
+  }
+
+  //   cerrar sesion firebase.auth().signOut().then(() => {
+  //     // Sign-out successful.
+  //   }).catch((error) => {
+  //     // An error happened.
+  //   });
