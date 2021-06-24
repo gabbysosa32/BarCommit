@@ -47,6 +47,7 @@
   })
   $$(document).on('page:init', '.page[data-name="registro"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#registro').on('click', fnRegistrarusuario)
 
   })
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
@@ -56,7 +57,7 @@
 
 
 
-  $$('#registro').on('click', fnRegistrarusuario)
+
 
 
   var nombre = "";
@@ -86,7 +87,7 @@
 
       // Creacion de usuario -----------------------------------
 
-      firebase.auth().createUserWhitEmailAndPassword(mail, clave)
+      firebase.auth().createUserWithEmailAndPassword(mail, clave)
           .then(function() {
               mainView.router.navigate('/login/');
 
