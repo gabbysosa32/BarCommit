@@ -24,7 +24,7 @@
     <meta name="color-scheme" content="light dark">
 
     <!-- Your app title -->
-    <title>Mandala Bar</title>
+    <title class="center">Mandala Bar</title>
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="lib/framework7/framework7-bundle.min.css">
     <!-- Path to icons -->
@@ -46,9 +46,9 @@
             <div class="navbar">
                 <div class="navbar-bg"></div>
                 <div class="navbar-inner">
-                    <div class="left"><i class="icon icon-back"></i></div>
+
                     <div class="title">Bienvenido a Mandala</div>
-                    <div class="right"><i class="icon icon-forward"></i></div>
+
                 </div>
             </div>
 
@@ -57,36 +57,48 @@
                 <div class="toolbar-inner">
                     <!-- Toolbar links -->
 
-                    <a href="#" class="link">Link 1</a>
 
-                    <a href="#" class="link">Link 2</a>
                 </div>
             </div>
 
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">
                 <!-- Scrollable page content -->
-                <div class="page-content">
-                    <div class="block">
-
+                <div class="page-content login-screen-content">
+                    <div class="login-screen-title">Ingrese sus datos</div>
+                    <form>
                         <div class="list">
                             <ul>
-                                <li>
-                                    <div class="col"><a href="#" id="IrALogin">Iniciar sesión</a></div>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Correo electrónico</div>
+                                        <div class="item-input-wrap">
+                                            <input type="email" name="email" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">Contraseña</div>
+                                        <div class="item-input-wrap">
+                                            <input type="password" name="password" placeholder="Contraseña" />
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <li><a href="#" class="list-button" id="IrAUsuario">Iniciar sesión</a></li>
+                            </ul>
                             <div class="block-footer">
-
-                                <p>
-                                    <div class="col"><a href="#" id="IrARegistro">Registrarse</a></div>
-                                </p>
+                                <ul>
+                                    <li><a href="#" class="list-button" id="IrARegistro">Aun no estas registrado?</a></li>
+                                </ul>
+                                <p><a href="#" class="link back">Volver</a></p>
                             </div>
                         </div>
-
-
-
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

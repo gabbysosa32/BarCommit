@@ -14,8 +14,8 @@
       },
       // Add default routes
       routes: [
+              { path: '/index/', url: 'index.html', },
               { path: '/about/', url: 'about.html', },
-              { path: '/login/', url: 'login.html', },
               { path: '/registro/', url: 'registro.html', },
               { path: '/usuario/', url: 'usuario.html', },
           ]
@@ -38,16 +38,12 @@
   // Option 2. Using live 'page:init' event handlers for each page
   $$(document).on('page:init', '.page[data-name="index"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      $$('#IrALogin').on('click', fnirALogin);
       $$('#IrARegistro').on('click', fnirARegistro);
-  })
-  $$(document).on('page:init', '.page[data-name="login"]', function(e) {
-      // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrAUsuario').on('click', fnirAUsuario);
   })
   $$(document).on('page:init', '.page[data-name="registro"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      $$('#registro').on('click', fnRegistrarusuario)
+      $$('#registro').on('click', fnRegistrarusuario);
 
   })
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
@@ -63,12 +59,10 @@
   var nombre = "";
   var mail = "";
   var local = "";
-  clave = "";
+  var clave = "";
 
-  function fnirALogin() {
 
-      mainView.router.navigate('/login/');
-  }
+
 
   function fnirARegistro() {
 
@@ -80,16 +74,20 @@
   }
 
   function fnRegistrarusuario() {
+      console.log("anda el registro");
       mail = $$('#registro-email').val();
       local = $$('#registro-local').val();
       nombre = $$('#registro-nombre').val();
       clave = $$('#registro-clave').val();
 
+
+
       // Creacion de usuario -----------------------------------
 
       firebase.auth().createUserWithEmailAndPassword(mail, clave)
           .then(function() {
-              mainView.router.navigate('/login/');
+              mainView.router.navigate('/index/');
+              console.log("crea el usuario")
 
           })
           .catch(function(error) {
