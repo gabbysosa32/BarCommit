@@ -70,37 +70,46 @@
   }
 
   function fnirAUsuario() {
-      mainView.router.navigate('/usuario/');
-  }
 
-  function fnRegistrarusuario() {
-      console.log("anda el registro");
-      mail = $$('#registro-email').val();
-      local = $$('#registro-local').val();
-      nombre = $$('#registro-nombre').val();
-      clave = $$('#registro-clave').val();
+      firebase.auth().signInWithEmailAndPassword(mail, clave)
+          .then((function() {
+                  mainView.router.navigate('/usuario/');
+              })
+              .catch(function(error) {
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+              });
+          }
+
+
+      function fnRegistrarusuario() {
+          console.log("anda el registro");
+          mail = $$('#registro-email').val();
+          local = $$('#registro-local').val();
+          nombre = $$('#registro-nombre').val();
+          clave = $$('#registro-clave').val();
 
 
 
-      // Creacion de usuario -----------------------------------
+          // Creacion de usuario -----------------------------------
 
-      firebase.auth().createUserWithEmailAndPassword(mail, clave)
-          .then(function() {
-              mainView.router.navigate('/index/');
-              console.log("crea el usuario")
+          firebase.auth().createUserWithEmailAndPassword(mail, clave)
+              .then(function() {
+                  mainView.router.navigate('/index/');
+                  console.log("crea el usuario")
 
-          })
-          .catch(function(error) {
-              if (error.code == "auth/email-already-in-use") {
-                  console.error("el mail elegido ya esta vinculado a una cuenta");
-              }
+              })
+              .catch(function(error) {
+                  if (error.code == "auth/email-already-in-use") {
+                      console.error("el mail elegido ya esta vinculado a una cuenta");
+                  }
 
-          });
+              });
 
-  }
+      }
 
-  //   cerrar sesion firebase.auth().signOut().then(() => {
-  //     // Sign-out successful.
-  //   }).catch((error) => {
-  //     // An error happened.
-  //   });
+      //   cerrar sesion firebase.auth().signOut().then(() => {
+      //     // Sign-out successful.
+      //   }).catch((error) => {
+      //     // An error happened.
+      //   });
