@@ -18,6 +18,7 @@
               { path: '/about/', url: 'about.html', },
               { path: '/registro/', url: 'registro.html', },
               { path: '/usuario/', url: 'usuario.html', },
+              { path: '/pedidos/', url: 'pedidos.html', },
           ]
           // ... other parameters
   });
@@ -48,8 +49,9 @@
   })
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-
+      $$('#IrAPedidos').on('click', fnirAPedidos);
   })
+
 
 
 
@@ -62,7 +64,9 @@
   var clave = "";
 
 
-
+  function fnirAPedidos() {
+      mainView.router.navigate('/pedidos/');
+  }
 
   function fnirARegistro() {
 
@@ -71,45 +75,48 @@
 
   function fnirAUsuario() {
 
-      firebase.auth().signInWithEmailAndPassword(mail, clave)
-          .then((function() {
-                  mainView.router.navigate('/usuario/');
-              })
-              .catch(function(error) {
-                  var errorCode = error.code;
-                  var errorMessage = error.message;
-              });
-          }
+      //   firebase.auth().signInWithEmailAndPassword(mail, clave)
+      //       .then((userCredential) => {
+      //           // Signed in
+      //           var user = userCredential.user;
+      //           mainView.router.navigate('/usuario/');
+      //           console.log("Anda")
+      //       })
+      //       .catch((error) => {
+      //           var errorCode = error.code;
+      //           var errorMessage = error.message;
+      //       });
+      mainView.router.navigate('/usuario/');
+  }
 
 
-      function fnRegistrarusuario() {
-          console.log("anda el registro");
-          mail = $$('#registro-email').val();
-          local = $$('#registro-local').val();
-          nombre = $$('#registro-nombre').val();
-          clave = $$('#registro-clave').val();
+  function fnRegistrarusuario() {
+      mail = $$('#registro-email').val();
+      local = $$('#registro-local').val();
+      nombre = $$('#registro-nombre').val();
+      clave = $$('#registro-clave').val();
 
 
 
-          // Creacion de usuario -----------------------------------
+      // Creacion de usuario -----------------------------------
 
-          firebase.auth().createUserWithEmailAndPassword(mail, clave)
-              .then(function() {
-                  mainView.router.navigate('/index/');
-                  console.log("crea el usuario")
+      firebase.auth().createUserWithEmailAndPassword(mail, clave)
+          .then(function() {
+              mainView.router.navigate('/index/');
+              console.log("crea el usuario")
 
-              })
-              .catch(function(error) {
-                  if (error.code == "auth/email-already-in-use") {
-                      console.error("el mail elegido ya esta vinculado a una cuenta");
-                  }
+          })
+          .catch(function(error) {
+              if (error.code == "auth/email-already-in-use") {
+                  console.error("el mail elegido ya esta vinculado a una cuenta");
+              }
 
-              });
+          });
 
-      }
+  }
 
-      //   cerrar sesion firebase.auth().signOut().then(() => {
-      //     // Sign-out successful.
-      //   }).catch((error) => {
-      //     // An error happened.
-      //   });
+  //   cerrar sesion firebase.auth().signOut().then(() => {
+  //     // Sign-out successful.
+  //   }).catch((error) => {
+  //     // An error happened.
+  //   });
