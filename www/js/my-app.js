@@ -126,6 +126,7 @@
       var datos = {
           Nombre: nombre,
           Local: local,
+          Estado = 2,
 
       };
       var MiId = mail;
