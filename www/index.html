@@ -36,16 +36,45 @@
 <body>
     <div id="app">
         <!-- Statusbar overlay -->
+        <div class="appbar">
+            <div class="appbar-inner">
+                <div class="left">
+                    <a href="#" class="button button-small panel-toggle display-flex" data-panel="left">
+                        <i class="f7-icons">bars</i>
+                    </a>
+                    <a href="#" class="button button-small display-flex margin-left-half link back">
+                        <i class="f7-icons">arrowshape_turn_up_left_fill</i>
+                    </a>
+                </div>
+                <div class="right">
+                    <div class="searchbar searchbar-inline">
+                        <div class="searchbar-input-wrap">
+                            <input type="text" placeholder="Buscar" />
+                            <i class="searchbar-icon"></i>
+                            <div class="input-clear-button"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="statusbar"></div>
 
-
+        <div class="panel panel-left panel-cover panel-init">
+            <div class="block">
+                <p>Panel left content</p>
+                <a href="#" class="list-button" id="IrAPerfilU">Ver Perfil</a>
+                <a href="#" class="list-button" id="LogOut">Cerrar sesion</a>
+            </div>
+        </div>
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
 
             <!-- Top Navbar -->
             <div class="navbar">
-                <div class="navbar-bg"></div>
+
+                <!-- <div class="navbar-bg"></div>
                 <div class="navbar-inner">
+
                     <div class="left">
                         <a href="#" class="link back">
                             <i class="icon icon-back"></i>
@@ -55,7 +84,7 @@
 
                     <div class="title">La Mandala Bar</div>
 
-                </div>
+                </div> -->
             </div>
 
             <!-- Toolbar -->

@@ -29,6 +29,7 @@
   var mail = "";
   var local = "";
   var clave = "";
+  var db = firebase.firestore();
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function() {
       console.log("Device is ready!");
@@ -54,13 +55,7 @@
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrAPedidos').on('click', fnirAPedidos);
-      db = firebase.firestore();
-      var datos = {
-          nombre: $$('registro-nombre').val(),
-          local: $$('registro-local').val(),
-          contraseña: $$('registro-clave').val()
 
-      }
   })
   $$(document).on('page:init', '.page[data-name="pedidos"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
@@ -112,10 +107,12 @@
 
       // Creacion de usuario -----------------------------------
 
+
       firebase.auth().createUserWithEmailAndPassword(mail, clave)
           .then(function() {
               mainView.router.navigate('/index/');
               console.log("crea el usuario")
+
 
           })
           .catch(function(error) {
@@ -124,6 +121,21 @@
               }
 
           });
+      //   Ingresando los datos a la base de datos
+
+      var datos = {
+          Nombre: nombre,
+          Local: local,
+
+      };
+      var MiId = mail;
+      db.collection("usuarios").doc(MiId).set(datos) //Jorge esto no me crea la coleccion, no se si deberia ponerlo aca
+          .then(function(MiVarDeDocRef) { //o ponerlo en el then de arriba del auth
+              console.log("Se creo todo bien");
+          })
+          .catch(function(datosDelError) {
+              console.log("Salio todo mal");
+          })
 
   }
 
