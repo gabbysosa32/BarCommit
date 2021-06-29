@@ -126,11 +126,11 @@
       var datos = {
           Nombre: nombre,
           Local: local,
-          Estado = 2,
+          Estado: 2,
 
       };
-      var MiId = mail;
-      db.collection("usuarios").doc(MiId).set(datos) //Jorge esto no me crea la coleccion, no se si deberia ponerlo aca
+
+      db.collection("usuarios").doc(mail).set(datos) //Jorge esto no me crea la coleccion, no se si deberia ponerlo aca
           .then(function(MiVarDeDocRef) { //o ponerlo en el then de arriba del auth
               console.log("Se creo todo bien");
           })
