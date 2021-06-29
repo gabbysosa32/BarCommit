@@ -25,6 +25,10 @@
 
   var mainView = app.views.create('.view-main');
 
+  var nombre = "";
+  var mail = "";
+  var local = "";
+  var clave = "";
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function() {
       console.log("Device is ready!");
@@ -50,6 +54,17 @@
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrAPedidos').on('click', fnirAPedidos);
+      db = firebase.firestore();
+      var datos = {
+          nombre: $$('registro-nombre').val(),
+          local: $$('registro-local').val(),
+          contraseña: $$('registro-clave').val()
+
+      }
+  })
+  $$(document).on('page:init', '.page[data-name="pedidos"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+
   })
 
 
@@ -58,10 +73,7 @@
 
 
 
-  var nombre = "";
-  var mail = "";
-  var local = "";
-  var clave = "";
+
 
 
   function fnirAPedidos() {
@@ -77,7 +89,7 @@
 
       //   firebase.auth().signInWithEmailAndPassword(mail, clave)
       //       .then((userCredential) => {
-      //           // Signed in
+
       //           var user = userCredential.user;
       //           mainView.router.navigate('/usuario/');
       //           console.log("Anda")
