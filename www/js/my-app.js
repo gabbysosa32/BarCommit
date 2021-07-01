@@ -19,6 +19,8 @@
               { path: '/registro/', url: 'registro.html', },
               { path: '/usuario/', url: 'usuario.html', },
               { path: '/pedidos/', url: 'pedidos.html', },
+              { path: '/cartaadmin/', url: 'cartaadmin.html', },
+              { path: '/admin/', url: 'admin.html', },
           ]
           // ... other parameters
   });
@@ -29,6 +31,9 @@
   var mail = "";
   var local = "";
   var clave = "";
+  var categoria = "";
+  var nombreprod = "";
+  var precioprod = "";
   var db = firebase.firestore();
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function() {
@@ -45,7 +50,8 @@
   $$(document).on('page:init', '.page[data-name="index"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrARegistro').on('click', fnirARegistro);
-      $$('#IrAUsuario').on('click', fnirAUsuario);
+      //   $$('#IrAUsuario').on('click', fnirAUsuario);
+      $$('#IrAUsuario').on('click', fnirAAdmin);
   })
   $$(document).on('page:init', '.page[data-name="registro"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
@@ -61,15 +67,27 @@
       // Do something here when page with data-name="about" attribute loaded and initialized
 
   })
+  $$(document).on('page:init', '.page[data-name="admin"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#IrACartaAd').on('click', fnirACartaAd);
+  })
+  $$(document).on('page:init', '.page[data-name="cartaadmin"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      $$('#AgregarCarta').on('click', fnAgregarCarta);
+  })
 
 
 
 
 
 
+  function fnirAAdmin() {
+      mainView.router.navigate('/admin/');
+  }
 
-
-
+  function fnirACartaAd() {
+      mainView.router.navigate('/cartaadmin/');
+  }
 
   function fnirAPedidos() {
       mainView.router.navigate('/pedidos/');
@@ -130,14 +148,39 @@
 
       };
 
-      db.collection("usuarios").doc(mail).set(datos) //Jorge esto no me crea la coleccion, no se si deberia ponerlo aca
-          .then(function(MiVarDeDocRef) { //o ponerlo en el then de arriba del auth
+      db.collection("usuarios").doc(mail).set(datos)
+          .then(function(MiVarDeDocRef) {
               console.log("Se creo todo bien");
           })
           .catch(function(datosDelError) {
               console.log("Salio todo mal");
           })
 
+  }
+
+  function fnAgregarCarta() {
+      categoria = $$('#nat-ad').val();
+      nombreprod = $$('#nom-ad').val();
+      precioprod = $$('#pre-ad').val();
+
+
+
+
+
+      var datos2 = {
+          Nombre: nombreprod,
+          Precio: precioprod,
+          Estado: 1,
+
+      };
+
+      db.collection("Carta").doc(categoria).set(datos2)
+          .then(function(MiVarDeDocRef) {
+              console.log("Se creo todo bien");
+          })
+          .catch(function(datosDelError) {
+              console.log("Salio todo mal");
+          })
   }
 
   //   cerrar sesion firebase.auth().signOut().then(() => {
