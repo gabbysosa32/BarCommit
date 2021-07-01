@@ -80,13 +80,13 @@
   })
   $$(document).on('page:init', '.page[data-name="verusuarios"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-
+      // -------------------------------------------------trayendo los usuarios de la base de datos 
       db.collection("usuarios").get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
                   // doc.data() is never undefined for query doc snapshots
                   //   console.log(doc.id, " => ", doc.data());
-                  email = doc.id;
+                  mail = doc.id;
                   nombre = doc.data().Nombre;
                   local = doc.data().Local; //sale por el catch por alguna razon
 
