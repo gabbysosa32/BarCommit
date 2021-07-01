@@ -21,6 +21,7 @@
               { path: '/pedidos/', url: 'pedidos.html', },
               { path: '/cartaadmin/', url: 'cartaadmin.html', },
               { path: '/admin/', url: 'admin.html', },
+              { path: '/verusuarios/', url: 'verusuarios.html', },
           ]
           // ... other parameters
   });
@@ -34,6 +35,7 @@
   var categoria = "";
   var nombreprod = "";
   var precioprod = "";
+  //   var colUsuarios = db.collection('usuarios');
   var db = firebase.firestore();
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function() {
@@ -70,16 +72,51 @@
   $$(document).on('page:init', '.page[data-name="admin"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrACartaAd').on('click', fnirACartaAd);
+      $$('#IrAVerUsuarios').on('click', fnIrAUsuarios);
   })
   $$(document).on('page:init', '.page[data-name="cartaadmin"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#AgregarCarta').on('click', fnAgregarCarta);
   })
+  $$(document).on('page:init', '.page[data-name="verusuarios"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+
+      db.collection("usuarios").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  //   console.log(doc.id, " => ", doc.data());
+                  email = doc.id;
+                  nombre = doc.data().Nombre;
+                  local = doc.data().Local; //sale por el catch por alguna razon
+
+                  carta = `<div class="card">
+                  <div class="card-header">` + email + `</div>
+                  <div class="card-content">
+                    Nombre : ` + Nombre + `
+                  </div>
+                  <div class="card-footer">Local: ` + local + `</div>
+                  </div>`
+
+                  $$('#contenedorUsuarios').append(carta);
+
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+
+
+  })
 
 
 
 
 
+  function fnIrAUsuarios() {
+      mainView.router.navigate('/verusuarios/');
+  }
 
   function fnirAAdmin() {
       mainView.router.navigate('/admin/');
@@ -132,6 +169,20 @@
               console.log("crea el usuario")
 
 
+              var datos = {
+                  Nombre: nombre,
+                  Local: local,
+                  Estado: 2,
+
+              };
+
+              db.collection("usuarios").doc(mail).set(datos)
+                  .then(function(MiVarDeDocRef) {
+                      console.log("Se creo todo bien");
+                  })
+                  .catch(function(datosDelError) {
+                      console.log("Salio todo mal");
+                  })
           })
           .catch(function(error) {
               if (error.code == "auth/email-already-in-use") {
@@ -139,22 +190,7 @@
               }
 
           });
-      //   Ingresando los datos a la base de datos
 
-      var datos = {
-          Nombre: nombre,
-          Local: local,
-          Estado: 2,
-
-      };
-
-      db.collection("usuarios").doc(mail).set(datos)
-          .then(function(MiVarDeDocRef) {
-              console.log("Se creo todo bien");
-          })
-          .catch(function(datosDelError) {
-              console.log("Salio todo mal");
-          })
 
   }
 
