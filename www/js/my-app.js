@@ -22,6 +22,7 @@
               { path: '/cartaadmin/', url: 'cartaadmin.html', },
               { path: '/admin/', url: 'admin.html', },
               { path: '/verusuarios/', url: 'verusuarios.html', },
+              { path: '/carta/', url: 'carta.html', },
           ]
           // ... other parameters
   });
@@ -65,6 +66,7 @@
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrAPedidos').on('click', fnirAPedidos);
+      $$('#VerCarta').on('click', fnVerCarta);
 
   })
   $$(document).on('page:init', '.page[data-name="pedidos"]', function(e) {
@@ -83,12 +85,71 @@
   $$(document).on('page:init', '.page[data-name="verusuarios"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       // -------------------------------------------------trayendo los usuarios de la base de datos 
-      $$('#ListarUsuarios').on('click', fnListar);
+
+
 
 
 
   })
+  $$(document).on('page:init', '.page[data-name="carta"]', function(e) {
+          // Do something here when page with data-name="about" attribute loaded and initialized
 
+      })
+      //   Muestro las gaseosas en el html 
+  db.collection("Gaseosa").get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+
+              tipo = doc.id;
+              precio = doc.data().Precio;
+              estado = doc.data().Estado;
+
+              cartagaseosa = `<h1> </h1>
+              <h4> ` + tipo + ` <br></h4>
+                            <h5> $ ` + precio + ` </h5>   
+              `
+
+
+
+              $$('#Contenedorgaseosas').append(cartagaseosa);
+
+              console.log(precio)
+              console.log(estado)
+              console.log(tipo)
+          });
+      })
+      .catch(function() {
+          console.log("Error DataBAse")
+
+      })
+      //   Muestro las hamburguesas en el html
+  db.collection("Hamburguesas").get()
+      .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              //   console.log(doc.id, " => ", doc.data());
+              tipo = doc.id;
+              precio = doc.data().Precio;
+              estado = doc.data().Estado;
+
+              cartaburguers = `<h1> </h1>
+              <h4> ` + tipo + ` <br></h4>
+                            <h5> $ ` + precio + ` </h5>   
+              `
+
+
+
+              $$('#Contenedorhamburguesas').append(cartaburguers);
+
+              console.log(precio)
+              console.log(estado)
+              console.log(tipo)
+          });
+      })
+      .catch(function() {
+          console.log("Error DataBAse")
+
+      })
 
 
 
@@ -156,7 +217,8 @@
   }
 
   function fnirAAdmin() {
-      mainView.router.navigate('/admin/');
+      //   mainView.router.navigate('/admin/');
+      mainView.router.navigate('/usuario/');
   }
 
   function fnirACartaAd() {
@@ -255,6 +317,10 @@
           .catch(function(datosDelError) {
               console.log("Salio todo mal");
           })
+  }
+
+  function fnVerCarta() {
+      mainView.router.navigate('/carta/');
   }
 
 
