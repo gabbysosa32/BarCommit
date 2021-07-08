@@ -314,7 +314,7 @@
                   estado = doc.data().Estado;
 
                   cartagaseosa = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `')">Agregar al carrito</button><br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
                             
                   `
 
@@ -343,7 +343,7 @@
                   estado = doc.data().Estado;
 
                   cartacafe = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `')">Agregar al carrito</button><br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
                             
                   `
 
@@ -371,7 +371,7 @@
                   estado = doc.data().Estado;
 
                   cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `')">Agregar al carrito</button><br></h4>
+              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
                             
               `
 
@@ -391,13 +391,15 @@
 
   }
 
-  function carrito(n) {
+  function carrito(n, p) {
       tipobd = n;
+      preciobd = p;
       //   preciobd = x;
 
 
       console.log("anda la funcion carrito")
       console.log(tipobd)
+      console.log(preciobd)
   }
 
   function FnCerrarsesion() {
