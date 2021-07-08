@@ -46,6 +46,8 @@
   $$(document).on('page:init', function(e) {
       // Do something here when page loaded and initialized
       console.log(e);
+      //   $$('#LogOut').on('click', FnCerrarsesion);
+      //   console.log("Index")
   })
 
   // Option 2. Using live 'page:init' event handlers for each page
@@ -93,6 +95,71 @@
 
   function fnIrAUsuarios() {
       mainView.router.navigate('/verusuarios/');
+
+      db.collection("usuarios").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  //   console.log(doc.id, " => ", doc.data());
+                  mail = doc.id;
+                  nombre = doc.data().Nombre;
+                  local = doc.data().Local; //sale por el catch por alguna razon
+                  Estado = doc.data().Estado;
+                  carta = `<div class="card data-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th class="input-cell">
+                          <span class="table-head-label">Nombre</span>
+                          
+                        </th>
+                        <th class="input-cell">
+                          <span class="table-head-label">Local</span>
+                          
+                        </th>
+                        <th class="input-cell">
+                          <span class="table-head-label">Mail</span>
+                          
+                        </th>
+                        <th class="input-cell">
+                          <span class="table-head-label">Estado</span>
+                          <div class="input input-dropdown">
+                            <select>
+                              <option value="1">Admin</option>
+                              <option value="2">Cliente</option>
+                              <option value="3">Inactivo</option>
+                            </select>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>` + nombre + `</td>
+                        <td>` + local + `</td>
+                        <td>` + mail + `</td>
+                    
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>`
+                      //   carta = `<div class="card">
+                      //   <div class="card-header">` + mail + `</div>
+                      //   <div class="card-content">
+                      //     Nombre : ` + nombre + `
+                      //   </div>
+                      //   <div class="card-footer">Local: ` + local + `</div>
+                      //   <div class="card-footer">Estado: ` + Estado + `</div>
+                      //   </div>`
+
+                  $$('#contenedorUsuarios').append(carta);
+                  console.log("anda bien pa")
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
   }
 
   function fnirAAdmin() {
@@ -202,31 +269,28 @@
   //   }).catch((error) => {
   //     // An error happened.
   //   });
-  function fnListar() {
-      db.collection("usuarios").get()
-          .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
-                  //   console.log(doc.id, " => ", doc.data());
-                  mail = doc.id;
-                  nombre = doc.data().Nombre;
-                  local = doc.data().Local; //sale por el catch por alguna razon
-                  Estado = doc.data().Estado;
-                  carta = `<div class="card">
-                  <div class="card-header">` + mail + `</div>
-                  <div class="card-content">
-                    Nombre : ` + nombre + `
-                  </div>
-                  <div class="card-footer">Local: ` + local + `</div>
-                  <div class="card-footer">Estado: ` + Estado + `</div>
-                  </div>`
 
-                  $$('#contenedorUsuarios').append(carta);
-                  console.log("anda bien pa")
-              });
-          })
-          .catch(function() {
-              console.log("Error DataBAse")
 
-          })
-  }
+  //   function FnCerrarsesion() {
+  //       console.log("Index23")
+  //       var logOut = () => {
+
+
+  //           var user = firebase.auth().currentUser;
+
+  //           if (user) {
+  //               firebase.auth().signOut()
+  //                   .then(() => {
+  //                       console.log('Cerrar sesión');
+  //                       mainView.router.navigate('/index/');
+  //                   })
+  //                   .catch((error) => {
+  //                       console.log('error ' + error);
+  //                   });
+  //           } else {
+  //               console.log('Ya cerre sesion');
+  //           }
+
+  //       }
+
+  //   }
