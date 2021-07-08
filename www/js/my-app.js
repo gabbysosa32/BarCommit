@@ -81,31 +81,8 @@
   $$(document).on('page:init', '.page[data-name="verusuarios"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       // -------------------------------------------------trayendo los usuarios de la base de datos 
-      db.collection("usuarios").get()
-          .then((querySnapshot) => {
-              querySnapshot.forEach((doc) => {
-                  // doc.data() is never undefined for query doc snapshots
-                  //   console.log(doc.id, " => ", doc.data());
-                  mail = doc.id;
-                  nombre = doc.data().Nombre;
-                  local = doc.data().Local; //sale por el catch por alguna razon
+      $$('#ListarUsuarios').on('click', fnListar);
 
-                  carta = `<div class="card">
-                  <div class="card-header">` + email + `</div>
-                  <div class="card-content">
-                    Nombre : ` + Nombre + `
-                  </div>
-                  <div class="card-footer">Local: ` + local + `</div>
-                  </div>`
-
-                  $$('#contenedorUsuarios').append(carta);
-
-              });
-          })
-          .catch(function() {
-              console.log("Error DataBAse")
-
-          })
 
 
   })
@@ -208,9 +185,10 @@
           Precio: precioprod,
           Estado: 1,
 
+
       };
 
-      db.collection("Carta").doc(categoria).set(datos2)
+      db.collection("Carta").doc(local).collection(categoria).doc.set(datos2)
           .then(function(MiVarDeDocRef) {
               console.log("Se creo todo bien");
           })
@@ -224,3 +202,31 @@
   //   }).catch((error) => {
   //     // An error happened.
   //   });
+  function fnListar() {
+      db.collection("usuarios").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  //   console.log(doc.id, " => ", doc.data());
+                  mail = doc.id;
+                  nombre = doc.data().Nombre;
+                  local = doc.data().Local; //sale por el catch por alguna razon
+                  Estado = doc.data().Estado;
+                  carta = `<div class="card">
+                  <div class="card-header">` + mail + `</div>
+                  <div class="card-content">
+                    Nombre : ` + nombre + `
+                  </div>
+                  <div class="card-footer">Local: ` + local + `</div>
+                  <div class="card-footer">Estado: ` + Estado + `</div>
+                  </div>`
+
+                  $$('#contenedorUsuarios').append(carta);
+                  console.log("anda bien pa")
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+  }
