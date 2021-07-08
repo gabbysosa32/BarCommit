@@ -36,6 +36,9 @@
   var categoria = "";
   var nombreprod = "";
   var precioprod = "";
+  var tipobd = "";
+  var preciobd = "";
+
   //   var colUsuarios = db.collection('usuarios');
   var db = firebase.firestore();
   // Handle Cordova Device Ready Event
@@ -279,7 +282,7 @@
                   estado = doc.data().Estado;
 
                   cartagaseosa = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="carrito(` + tipo + `, ` + precio + `)">agregar a mi pedido</button> <br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="carrito('"+tipo+"')">agregar a mi pedido</button> <br></h4>
                             
                   `
 
@@ -308,7 +311,7 @@
                   estado = doc.data().Estado;
 
                   cartacafe = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="carrito(` + tipo + `, ` + precio + `)">agregar a mi pedido</button>  <br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="carrito('"+tipo+"')">agregar a mi pedido</button>  <br></h4>
                             
                   `
 
@@ -336,7 +339,7 @@
                   estado = doc.data().Estado;
 
                   cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green"  onclick="carrito(` + tipo + `, ` + precio + `)">agregar a mi pedido</button>  <br></h4>
+              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green"  onclick="carrito('"+tipo+"')">agregar a mi pedido</button>  <br></h4>
                             
               `
 
@@ -356,11 +359,10 @@
 
   }
 
-  function carrito(i, p) {
-      i = id;
-      p = precio;
+  function carrito(t) {
+      tipobd = t;
 
-      console.log(i, p)
+      console.log(tipobd)
   }
   //   function FnCerrarsesion() {
   //       console.log("Index23")
