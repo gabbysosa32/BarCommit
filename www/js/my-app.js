@@ -336,7 +336,7 @@
                   estado = doc.data().Estado;
 
                   cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green"  onclick="Carro("tipo,precio")">agregar a mi pedido</button>  <br></h4>
+              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green"  onclick="Carro(` + tipo + `, ` + precio + `)">agregar a mi pedido</button>  <br></h4>
                             
               `
 
