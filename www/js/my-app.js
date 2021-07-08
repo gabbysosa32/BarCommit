@@ -143,14 +143,7 @@
                     </tbody>
                   </table>
                 </div>`
-                      //   carta = `<div class="card">
-                      //   <div class="card-header">` + mail + `</div>
-                      //   <div class="card-content">
-                      //     Nombre : ` + nombre + `
-                      //   </div>
-                      //   <div class="card-footer">Local: ` + local + `</div>
-                      //   <div class="card-footer">Estado: ` + Estado + `</div>
-                      //   </div>`
+
 
                   $$('#contenedorUsuarios').append(carta);
                   console.log("anda bien pa")
@@ -248,14 +241,14 @@
 
 
       var datos2 = {
-          Nombre: nombreprod,
+          //   Nombre: nombreprod,
           Precio: precioprod,
           Estado: 1,
 
 
       };
 
-      db.collection("Carta").doc(local).collection(categoria).doc.set(datos2)
+      db.collection(categoria).doc(nombreprod).set(datos2)
           .then(function(MiVarDeDocRef) {
               console.log("Se creo todo bien");
           })
@@ -264,11 +257,7 @@
           })
   }
 
-  //   cerrar sesion firebase.auth().signOut().then(() => {
-  //     // Sign-out successful.
-  //   }).catch((error) => {
-  //     // An error happened.
-  //   });
+
 
 
   //   function FnCerrarsesion() {
