@@ -279,7 +279,7 @@
                   estado = doc.data().Estado;
 
                   cartagaseosa = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button> <br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="Carro(` + tipo + `, ` + precio + `)">agregar a mi pedido</button> <br></h4>
                             
                   `
 
@@ -308,7 +308,7 @@
                   estado = doc.data().Estado;
 
                   cartacafe = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button>  <br></h4>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green onclick="Carro(` + tipo + `, ` + precio + `)">agregar a mi pedido</button>  <br></h4>
                             
                   `
 
@@ -336,7 +336,7 @@
                   estado = doc.data().Estado;
 
                   cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button>  <br></h4>
+              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green"  onclick="Carro("tipo,precio")">agregar a mi pedido</button>  <br></h4>
                             
               `
 
@@ -354,6 +354,10 @@
 
           })
 
+  }
+
+  function Carro(i, p) {
+      console.log(i, p)
   }
   //   function FnCerrarsesion() {
   //       console.log("Index23")
