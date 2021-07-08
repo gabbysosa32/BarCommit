@@ -92,65 +92,9 @@
 
   })
   $$(document).on('page:init', '.page[data-name="carta"]', function(e) {
-          // Do something here when page with data-name="about" attribute loaded and initialized
+      // Do something here when page with data-name="about" attribute loaded and initialized
 
-      })
-      //   Muestro las gaseosas en el html 
-  db.collection("Gaseosa").get()
-      .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-
-              tipo = doc.id;
-              precio = doc.data().Precio;
-              estado = doc.data().Estado;
-
-              cartagaseosa = `<h1> </h1>
-              <h4> ` + tipo + ` <br></h4>
-                            <h5> $ ` + precio + ` </h5>   
-              `
-
-
-
-              $$('#Contenedorgaseosas').append(cartagaseosa);
-
-              console.log(precio)
-              console.log(estado)
-              console.log(tipo)
-          });
-      })
-      .catch(function() {
-          console.log("Error DataBAse")
-
-      })
-      //   Muestro las hamburguesas en el html
-  db.collection("Hamburguesas").get()
-      .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-              //   console.log(doc.id, " => ", doc.data());
-              tipo = doc.id;
-              precio = doc.data().Precio;
-              estado = doc.data().Estado;
-
-              cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` <br></h4>
-                            <h5> $ ` + precio + ` </h5>   
-              `
-
-
-
-              $$('#Contenedorhamburguesas').append(cartaburguers);
-
-              console.log(precio)
-              console.log(estado)
-              console.log(tipo)
-          });
-      })
-      .catch(function() {
-          console.log("Error DataBAse")
-
-      })
-
+  })
 
 
 
@@ -319,13 +263,98 @@
           })
   }
 
+
+
+
+
   function fnVerCarta() {
       mainView.router.navigate('/carta/');
+      //   Muestro las gaseosas en el html 
+      db.collection("Gaseosa").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+
+                  tipo = doc.id;
+                  precio = doc.data().Precio;
+                  estado = doc.data().Estado;
+
+                  cartagaseosa = `<h1> </h1>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button> <br></h4>
+                            
+                  `
+
+
+
+                  $$('#Contenedorgaseosas').append(cartagaseosa);
+
+                  console.log(precio)
+                  console.log(estado)
+                  console.log(tipo)
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+
+      // Muestro la cafeteria en el html
+
+      db.collection("Cafeteria").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+
+                  tipo = doc.id;
+                  precio = doc.data().Precio;
+                  estado = doc.data().Estado;
+
+                  cartacafe = `<h1> </h1>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button>  <br></h4>
+                            
+                  `
+
+
+
+                  $$('#Contenedorcafeteria').append(cartacafe);
+
+                  console.log(precio)
+                  console.log(estado)
+                  console.log(tipo)
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+          // Muestro las hamburguesas en el html
+      db.collection("Hamburguesas").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  //   console.log(doc.id, " => ", doc.data());
+                  tipo = doc.id;
+                  precio = doc.data().Precio;
+                  estado = doc.data().Estado;
+
+                  cartaburguers = `<h1> </h1>
+              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green">agregar a mi pedido</button>  <br></h4>
+                            
+              `
+
+
+
+                  $$('#Contenedorhamburguesas').append(cartaburguers);
+
+                  console.log(precio)
+                  console.log(estado)
+                  console.log(tipo)
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+
   }
-
-
-
-
   //   function FnCerrarsesion() {
   //       console.log("Index23")
   //       var logOut = () => {
