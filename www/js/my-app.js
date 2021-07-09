@@ -2,6 +2,7 @@
   var $$ = Dom7;
 
   var app = new Framework7({
+
       // App root element
       root: '#app',
       // App Name
@@ -25,6 +26,7 @@
               { path: '/carta/', url: 'carta.html', },
           ]
           // ... other parameters
+
   });
 
   var mainView = app.views.create('.view-main');
@@ -40,6 +42,13 @@
   var tipobd = "";
   var preciobd = "";
   var mailbd = "";
+  //   var noti = app.notification.create({
+  //           icon: '<i class="icon demo-icon">7</i>',
+  //           title: 'Felicidades',
+  //           titleRightText: 'now',
+  //           
+  //           closeOnClick: true,
+  //       })
 
   //   var colUsuarios = db.collection('usuarios');
   var db = firebase.firestore();
@@ -86,6 +95,10 @@
   $$(document).on('page:init', '.page[data-name="cartaadmin"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#AgregarCarta').on('click', fnAgregarCarta);
+
+      noti.open();
+
+
   })
   $$(document).on('page:init', '.page[data-name="verusuarios"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
@@ -242,7 +255,11 @@
           .then((userCredential) => {
 
               var user = userCredential.user;
-
+              if (email == "admin@admin.com") {
+                  mainView.router.navigate('/admin/');
+              } else {
+                  mainView.router.navigate('/usuario/');
+              }
               //       db.collection("usuarios").where("mail", "==", "mail").get()
               //           .then((querySnapshot) => {
               //               querySnapshot.forEach((doc) => {
@@ -269,7 +286,7 @@
               //       var errorCode = error.code;
               //       var errorMessage = error.message;
           });
-      mainView.router.navigate('/usuario/');
+
   }
 
   function fnAgregarCarta() {
@@ -292,6 +309,8 @@
       db.collection(categoria).doc(nombreprod).set(datos2)
           .then(function(MiVarDeDocRef) {
               console.log("Se creo todo bien");
+
+
           })
           .catch(function(datosDelError) {
               console.log("Salio todo mal");
@@ -301,7 +320,7 @@
 
 
 
-
+  //   Lo de abajo esta todo mal creo
   function fnVerCarta() {
       mainView.router.navigate('/carta/');
       //   Muestro las gaseosas en el html 
@@ -321,6 +340,7 @@
 
 
                   $$('#Contenedorgaseosas').append(cartagaseosa);
+
 
                   console.log(precio)
                   console.log(estado)
@@ -389,12 +409,39 @@
 
           })
 
+
+      db.collection("Postres").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+
+                  tipo = doc.id;
+                  precio = doc.data().Precio;
+                  estado = doc.data().Estado;
+
+                  cartapostres = `<h1> </h1>
+                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+                            
+                  `
+
+
+
+                  $$('#Contenedorpostres').append(cartapostres);
+
+                  console.log(precio)
+                  console.log(estado)
+                  console.log(tipo)
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
   }
 
   function carrito(n, p) {
       tipobd = n;
       preciobd = p;
-      //   preciobd = x;
+
 
 
       console.log("anda la funcion carrito")
@@ -402,26 +449,26 @@
       console.log(preciobd)
   }
 
-  function FnCerrarsesion() {
-      console.log("Index23")
-      var logOut = () => {
+  //   function FnCerrarsesion() {
+  //       console.log("Index23")
+  //       var logOut = () => {
 
 
-          var user = firebase.auth().currentUser;
+  //           var user = firebase.auth().currentUser;
 
-          if (user) {
-              firebase.auth().signOut()
-                  .then(() => {
-                      console.log('Cerrar sesión');
-                      mainView.router.navigate('/index/');
-                  })
-                  .catch((error) => {
-                      console.log('error ' + error);
-                  });
-          } else {
-              console.log('Ya cerre sesion');
-          }
+  //           if (user) {
+  //               firebase.auth().signOut()
+  //                   .then(() => {
+  //                       console.log('Cerrar sesión');
+  //                       mainView.router.navigate('/index/');
+  //                   })
+  //                   .catch((error) => {
+  //                       console.log('error ' + error);
+  //                   });
+  //           } else {
+  //               console.log('Ya cerre sesion');
+  //           }
 
-      }
+  //       }
 
-  }
+  //   }
