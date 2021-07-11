@@ -42,6 +42,8 @@
   var tipobd = "";
   var preciobd = "";
   var mailbd = "";
+  var pedido = "";
+  var total = 0;
   //   var noti = app.notification.create({
   //           icon: '<i class="icon demo-icon">7</i>',
   //           title: 'Felicidades',
@@ -79,7 +81,7 @@
   })
   $$(document).on('page:init', '.page[data-name="usuario"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-      $$('#IrAPedidos').on('click', fnirAPedidos);
+
       $$('#VerCarta').on('click', fnVerCarta);
 
   })
@@ -111,7 +113,13 @@
   })
   $$(document).on('page:init', '.page[data-name="carta"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
-
+      $$('#Confirmarpedido').on('click', FnConfirmar);
+      $$('#Verpedido').on('click', FnVerCarrito);
+      pedido = {
+          email: email,
+          total: 0,
+          articulos: []
+      }
   })
 
 
@@ -324,6 +332,33 @@
   function fnVerCarta() {
       mainView.router.navigate('/carta/');
       //   Muestro las gaseosas en el html 
+      //   db.collection("Carta").get()
+      //       .then((querySnapshot) => {
+      //           querySnapshot.forEach((doc) => {
+
+      //               tipo = doc.data().data()
+      //               preciog = doc.data().collection(Gaseosas).data().precio;
+      //               estado = doc.data().data().Estado;
+
+      //               cartagaseosa = `<h1> </h1>
+      //                 <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+
+      //                 `
+
+
+
+      //               $$('#Contenedorgaseosas').append(cartagaseosa);
+
+
+      //               console.log(precio)
+      //               console.log(estado)
+      //               console.log(tipo)
+      //           });
+      //       })
+      //       .catch(function() {
+      //           console.log("Error DataBAse")
+
+      //       })
       db.collection("Gaseosa").get()
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -333,9 +368,9 @@
                   estado = doc.data().Estado;
 
                   cartagaseosa = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
-                            
-                  `
+                    <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+
+                    `
 
 
 
@@ -352,7 +387,7 @@
 
           })
 
-      // Muestro la cafeteria en el html
+      //   Muestro la cafeteria en el html
 
       db.collection("Cafeteria").get()
           .then((querySnapshot) => {
@@ -363,9 +398,9 @@
                   estado = doc.data().Estado;
 
                   cartacafe = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
-                            
-                  `
+                        <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+
+                        `
 
 
 
@@ -391,9 +426,9 @@
                   estado = doc.data().Estado;
 
                   cartaburguers = `<h1> </h1>
-              <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
-                            
-              `
+                    <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+
+                    `
 
 
 
@@ -419,9 +454,9 @@
                   estado = doc.data().Estado;
 
                   cartapostres = `<h1> </h1>
-                  <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
-                            
-                  `
+                        <h4> ` + tipo + ` $ ` + precio + `<button class="col button button-fill color-green" onclick="carrito('` + tipo + `','` + precio + `')">Agregar al carrito</button><br></h4>
+
+                        `
 
 
 
@@ -447,6 +482,38 @@
       console.log("anda la funcion carrito")
       console.log(tipobd)
       console.log(preciobd)
+
+
+      preciobd = parseFloat(preciobd);
+      pedido.total += preciobd;
+
+      let encontrado = false;
+      pedido.articulos.forEach(item => {
+          if (item.tipo == tipobd) {
+              item.cantidad++
+                  encontrado: true;
+          }
+      })
+      if (!encontrado) {
+          pedido.articulos.push({
+              tipo: tipobd,
+              precio: preciobd,
+              cantidad: 1,
+          })
+      }
+
+  }
+  //   JSON.parse(pedido)
+  function FnConfirmar() {
+      app.dialog.confirm('Desea confirmar el pedido?', 'Atencion', function() {
+          pedido.articulos = JSON.stringify(pedido.articulos)
+          db.collection('pedidos').add(pedido)
+          mainView.router.navigate('/usuario/');
+      })
+  }
+
+  function FnVerCarrito() {
+
   }
 
   //   function FnCerrarsesion() {
