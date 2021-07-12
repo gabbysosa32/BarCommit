@@ -590,13 +590,12 @@
                   console.log(tipo)
                   console.log(precio)
                   $$('#ContenedorPedidospendientes').append(pedidos);
-                  $$('#ContenedorTotal').append(supertotal);
 
               });
               mainView.router.navigate('/pedidosadmin/');
           })
           .catch(function() {
-              console.log("Error DataBAse")
+              console.log("Error DataasdBAse")
 
           })
 
