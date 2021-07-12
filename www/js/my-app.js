@@ -24,6 +24,7 @@
               { path: '/admin/', url: 'admin.html', },
               { path: '/verusuarios/', url: 'verusuarios.html', },
               { path: '/carta/', url: 'carta.html', },
+              { path: '/verpedidos/', url: 'verpedidos.html', },
           ]
           // ... other parameters
 
@@ -93,6 +94,7 @@
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#IrACartaAd').on('click', fnirACartaAd);
       $$('#IrAVerUsuarios').on('click', fnIrAUsuarios);
+      $$('#IrAPedidos').on('click', FnIrAPedidos);
   })
   $$(document).on('page:init', '.page[data-name="cartaadmin"]', function(e) {
       // Do something here when page with data-name="about" attribute loaded and initialized
@@ -105,6 +107,14 @@
       // Do something here when page with data-name="about" attribute loaded and initialized
       // -------------------------------------------------trayendo los usuarios de la base de datos 
 
+
+
+
+
+  })
+  $$(document).on('page:init', '.page[data-name="verpedidos"]', function(e) {
+      // Do something here when page with data-name="about" attribute loaded and initialized
+      // -------------------------------------------------trayendo los usuarios de la base de datos 
 
 
 
@@ -522,19 +532,21 @@
           .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
 
+                  articulos = doc.data().articulos
+                  for (let i = 0; i < articulos.length; i++) {
+                      console.log(articulos[i].tipo)
+                      console.log(articulos[i].precio)
+                      precio = articulos[i].precio
+                      tipo = articulos[i].tipo
+                      total = articulos[i].total
+                          //   carriyo = `<h1> </h1>
+                          // <h4> ` + tipo + ` $ ` + precio + `` + total + `<br></h4>
 
-
-                  for (i = 1; i <= Array.length; i++) {
-                      tipo = doc.data().articulos.cantidad
-                      precio = doc.data().articulos.precio
-                      carriyo = `<h1> </h1>
-                    <h4> ` + tipo + ` $ ` + precio + `<br></h4>
-                    
-                    `
-                      console.log(tipo)
-                      console.log(precio)
+                      // `
+                      //   console.log(tipo)
+                      //   console.log(precio)
                   }
-                  $$('#Contenedorcarrito').append(carriyo);
+                  //   $$('#Contenedorcarrito').append(carriyo);
               });
           })
           .catch(function() {
@@ -548,6 +560,48 @@
 
   }
 
+  function FnIrAPedidos() {
+      console.log("anda el boton")
+      mainView.router.navigate('/verpedidos/');
+      db.collection("pedidos").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+
+                  articulos = doc.data().articulos;
+                  total = doc.data().total;
+                  email = doc.data().email;
+                  for (let i = 0; i < articulos.length; i++) {
+                      console.log(articulos[i].tipo)
+                      console.log(articulos[i].precio)
+                      precio = articulos[i].precio
+                      tipo = articulos[i].tipo
+                      console.log("total");
+                      console.log("email");
+                      pedidos = `<h1> </h1>
+                            <h4> ` + tipo + ` $ ` + precio + `<br>  para  ` + email + `<br>  Total  ` + total + `<br></h4>
+                         
+                        `
+                      console.log(tipo)
+                      console.log(precio)
+                      $$('#ContenedorPedidospendientes').append(pedidos);
+                  }
+
+
+                  console.log(tipo)
+                  console.log(precio)
+                  $$('#ContenedorPedidospendientes').append(pedidos);
+                  $$('#ContenedorTotal').append(supertotal);
+
+              });
+              mainView.router.navigate('/pedidosadmin/');
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+
+
+  }
   //   function FnCerrarsesion() {
   //       console.log("Index23")
   //       var logOut = () => {
