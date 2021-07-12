@@ -63,7 +63,7 @@
   $$(document).on('page:init', function(e) {
       // Do something here when page loaded and initialized
       console.log(e);
-      $$('#LogOut').on('click', FnCerrarsesion);
+      //   $$('#LogOut').on('click', FnCerrarsesion);
       //   console.log("Index")
   })
 
@@ -98,7 +98,6 @@
       // Do something here when page with data-name="about" attribute loaded and initialized
       $$('#AgregarCarta').on('click', fnAgregarCarta);
 
-      noti.open();
 
 
   })
@@ -118,6 +117,7 @@
       pedido = {
           email: email,
           total: 0,
+          estado: 1,
           articulos: []
       }
   })
@@ -317,7 +317,11 @@
       db.collection(categoria).doc(nombreprod).set(datos2)
           .then(function(MiVarDeDocRef) {
               console.log("Se creo todo bien");
+              app.dialog.confirm('Se agrego exitosamente', 'Atencion', function() {
 
+
+                  mainView.router.navigate('/admin/');
+              })
 
           })
           .catch(function(datosDelError) {
@@ -503,16 +507,44 @@
       }
 
   }
-  //   JSON.parse(pedido)
+
   function FnConfirmar() {
       app.dialog.confirm('Desea confirmar el pedido?', 'Atencion', function() {
-          pedido.articulos = JSON.stringify(pedido.articulos)
+          //   pedido.articulos = JSON.stringify(pedido.articulos)
           db.collection('pedidos').add(pedido)
           mainView.router.navigate('/usuario/');
       })
   }
 
   function FnVerCarrito() {
+      app.popup.open(".popup-about");
+      db.collection("pedidos").get()
+          .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+
+
+
+                  for (i = 1; i <= Array.length; i++) {
+                      tipo = doc.data().articulos.cantidad
+                      precio = doc.data().articulos.precio
+                      carriyo = `<h1> </h1>
+                    <h4> ` + tipo + ` $ ` + precio + `<br></h4>
+                    
+                    `
+                      console.log(tipo)
+                      console.log(precio)
+                  }
+                  $$('#Contenedorcarrito').append(carriyo);
+              });
+          })
+          .catch(function() {
+              console.log("Error DataBAse")
+
+          })
+
+
+
+
 
   }
 
